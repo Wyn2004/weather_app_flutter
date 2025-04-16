@@ -24,6 +24,7 @@ class _BottomNavigationCustomState extends State<BottomNavigationCustom> {
       extendBody: true,
       body: listPages[currentPage],
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentPage,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white54,
         backgroundColor: Colors.white12,
