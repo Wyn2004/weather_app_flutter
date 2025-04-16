@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 
 class HomeTemperature extends StatelessWidget {
   final double temperature;
-  const HomeTemperature({super.key, required this.temperature});
+  final int fontSize;
+  const HomeTemperature({
+    super.key,
+    required this.temperature,
+    this.fontSize = 100,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +19,7 @@ class HomeTemperature extends StatelessWidget {
           temperature.round().toString(),
           style: TextStyle(
             color: Colors.white,
-            fontSize: 100,
+            fontSize: fontSize.toDouble(),
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -22,7 +27,7 @@ class HomeTemperature extends StatelessWidget {
           "°",
           style: TextStyle(
             color: Colors.white,
-            fontSize: 36,
+            fontSize: fontSize.toDouble() / 3,
             fontWeight: FontWeight.w700,
           ),
         ),

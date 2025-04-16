@@ -1,4 +1,7 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app/pages/detail/widgets/detail_body.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({super.key});
@@ -13,7 +16,33 @@ class DetailPage extends StatelessWidget {
           end: Alignment.bottomCenter,
         ),
       ),
-      child: Scaffold(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            children: [
+              Icon(CupertinoIcons.location, size: 30),
+              SizedBox(width: 15),
+              AnimatedTextKit(
+                repeatForever: true,
+                animatedTexts: [
+                  TypewriterAnimatedText(
+                    "Ho Chi Minh City",
+                    speed: Duration(milliseconds: 100),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          actions: [
+            IconButton(
+              icon: const Icon(CupertinoIcons.search),
+              onPressed: () {},
+            ),
+            SizedBox(width: 10),
+          ],
+        ),
+        body: DetailBody(),
+      ),
     );
   }
 }
