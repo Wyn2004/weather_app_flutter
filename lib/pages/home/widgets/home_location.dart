@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class HomeLocation extends StatelessWidget {
-  const HomeLocation({super.key});
+  final String location;
+  const HomeLocation({super.key, required this.location});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class HomeLocation extends StatelessWidget {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 15,
+          spacing: 5,
           children: [
             Image.asset(
               'assets/images/icons/location.png',
@@ -20,7 +21,7 @@ class HomeLocation extends StatelessWidget {
               height: 35,
             ),
             Text(
-              "HO CHI MINH City",
+              location,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 28,

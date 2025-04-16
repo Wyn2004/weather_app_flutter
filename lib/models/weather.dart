@@ -32,20 +32,22 @@ class Weather {
 
 class Main {
   final double temp;
-  final double feel_like;
+  final double feels_like;
   final double temp_min;
   final double temp_max;
+  final int humidity;
   Main({
     required this.temp,
-    required this.feel_like,
+    required this.feels_like,
     required this.temp_min,
     required this.temp_max,
+    required this.humidity,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'temp': temp,
-      'feel_like': feel_like,
+      'feel_like': feels_like,
       'temp_min': temp_min,
       'temp_max': temp_max,
     };
@@ -54,9 +56,10 @@ class Main {
   factory Main.fromMap(Map<String, dynamic> map) {
     return Main(
       temp: map['temp'] as double,
-      feel_like: map['feel_like'] as double,
+      feels_like: map['feels_like'] as double,
       temp_min: map['temp_min'] as double,
       temp_max: map['temp_max'] as double,
+      humidity: map['humidity'] as int,
     );
   }
 
@@ -97,6 +100,8 @@ class WeatherData {
   final int visibility;
   final Wind wind;
   final String name;
+  final int cod;
+
   WeatherData({
     required this.id,
     required this.listWeather,
@@ -104,6 +109,7 @@ class WeatherData {
     required this.visibility,
     required this.wind,
     required this.name,
+    required this.cod,
   });
 
   Map<String, dynamic> toMap() {
@@ -114,21 +120,22 @@ class WeatherData {
       'visibility': visibility,
       'wind': wind.toMap(),
       'name': name,
+      'cod': cod,
     };
   }
 
   factory WeatherData.fromMap(Map<String, dynamic> map) {
     return WeatherData(
       id: map['id'] as int,
-      listWeather: List<Weather>.from(
-        (map['listWeather'] as List<int>).map<Weather>(
-          (x) => Weather.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
-      base: Main.fromMap(map['base'] as Map<String, dynamic>),
+      listWeather:
+          (map['weather'] as List<dynamic>? ?? [])
+              .map<Weather>((x) => Weather.fromMap(x as Map<String, dynamic>))
+              .toList(),
+      base: Main.fromMap(map['main'] as Map<String, dynamic>),
       visibility: map['visibility'] as int,
       wind: Wind.fromMap(map['wind'] as Map<String, dynamic>),
       name: map['name'] as String,
+      cod: map['cod'] as int,
     );
   }
 
