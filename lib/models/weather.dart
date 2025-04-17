@@ -55,10 +55,10 @@ class Main {
 
   factory Main.fromMap(Map<String, dynamic> map) {
     return Main(
-      temp: map['temp'] as double,
-      feels_like: map['feels_like'] as double,
-      temp_min: map['temp_min'] as double,
-      temp_max: map['temp_max'] as double,
+      temp: (map['temp'] as num).toDouble(),
+      feels_like: (map['feels_like'] as num).toDouble(),
+      temp_min: (map['temp_min'] as num).toDouble(),
+      temp_max: (map['temp_max'] as num).toDouble(),
       humidity: map['humidity'] as int,
     );
   }
@@ -81,9 +81,9 @@ class Wind {
 
   factory Wind.fromMap(Map<String, dynamic> map) {
     return Wind(
-      speed: map['speed'] as double,
+      speed: (map['speed'] as num).toDouble(),
       deg: map['deg'] as int,
-      gust: map['gust'] as double,
+      gust: (map['gust'] as num).toDouble(),
     );
   }
 
@@ -100,7 +100,7 @@ class WeatherData {
   final int visibility;
   final Wind wind;
   final String name;
-  final int cod;
+  int? cod;
 
   WeatherData({
     required this.id,
@@ -109,7 +109,7 @@ class WeatherData {
     required this.visibility,
     required this.wind,
     required this.name,
-    required this.cod,
+    this.cod,
   });
 
   Map<String, dynamic> toMap() {
@@ -143,4 +143,44 @@ class WeatherData {
 
   factory WeatherData.fromJson(String source) =>
       WeatherData.fromMap(json.decode(source) as Map<String, dynamic>);
+}
+
+class WeatherDetail {
+  final List<Weather> listWeather;
+  final Main main;
+  final Wind wind;
+  final String dt_txt;
+
+  WeatherDetail({
+    required this.listWeather,
+    required this.main,
+    required this.wind,
+    required this.dt_txt,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'listWeather': listWeather.map((x) => x.toMap()).toList(),
+      'main': main.toMap(),
+      'wind': wind.toMap(),
+      'dt_txt': dt_txt,
+    };
+  }
+
+  factory WeatherDetail.fromMap(Map<String, dynamic> map) {
+    return WeatherDetail(
+      listWeather:
+          (map['weather'] as List<dynamic>? ?? [])
+              .map<Weather>((x) => Weather.fromMap(x as Map<String, dynamic>))
+              .toList(),
+      main: Main.fromMap(map['main'] as Map<String, dynamic>),
+      wind: Wind.fromMap(map['wind'] as Map<String, dynamic>),
+      dt_txt: map['dt_txt'] as String,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory WeatherDetail.fromJson(String source) =>
+      WeatherDetail.fromMap(json.decode(source) as Map<String, dynamic>);
 }

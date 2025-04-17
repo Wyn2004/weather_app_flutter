@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/apps/utils/const.dart';
+import 'package:weather_app/models/weather.dart';
 import 'package:weather_app/pages/home/widgets/home_temperature.dart';
 
 class DetailBody extends StatelessWidget {
-  const DetailBody({super.key});
+  final List<WeatherDetail> weatherDetails;
+  const DetailBody({super.key, required this.weatherDetails});
 
   @override
   Widget build(BuildContext context) {
