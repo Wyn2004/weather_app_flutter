@@ -38,6 +38,7 @@ dependencies:
   dio: ^5.8.0+1
   provider: ^6.1.4
   animated_text_kit: ^4.2.3
+  geolocator: ^14.0.0
 
 dev_dependencies:
   flutter_test:

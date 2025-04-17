@@ -47,7 +47,7 @@ class DetailPage extends StatelessWidget {
                     repeatForever: true,
                     animatedTexts: [
                       TypewriterAnimatedText(
-                        "Ho Chi Minh City",
+                        context.read<WeatherProvider>().nameCity,
                         speed: Duration(milliseconds: 100),
                       ),
                     ],

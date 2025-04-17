@@ -7,13 +7,27 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/pages/my_app.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    // Create a mock Position
+    final mockPosition = Position(
+      latitude: 10.842944,
+      longitude: 106.837314,
+      timestamp: DateTime.now(),
+      accuracy: 0,
+      altitude: 0,
+      heading: 0,
+      speed: 0,
+      speedAccuracy: 0,
+      altitudeAccuracy: 0,
+      headingAccuracy: 0,
+    );
+
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(MyApp(position: mockPosition));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

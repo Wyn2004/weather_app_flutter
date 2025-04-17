@@ -72,8 +72,8 @@ class Main {
 class Wind {
   final double speed;
   final int deg;
-  final double gust;
-  Wind({required this.speed, required this.deg, required this.gust});
+  final double? gust;
+  Wind({required this.speed, required this.deg, this.gust});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{'speed': speed, 'deg': deg, 'gust': gust};
@@ -83,7 +83,7 @@ class Wind {
     return Wind(
       speed: (map['speed'] as num).toDouble(),
       deg: map['deg'] as int,
-      gust: (map['gust'] as num).toDouble(),
+      gust: map['gust'] != null ? (map['gust'] as num).toDouble() : null,
     );
   }
 
@@ -91,6 +91,31 @@ class Wind {
 
   factory Wind.fromJson(String source) =>
       Wind.fromMap(json.decode(source) as Map<String, dynamic>);
+}
+
+class City {
+  final int id;
+  final String name;
+  final String country;
+
+  City({required this.id, required this.name, required this.country});
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'id': id, 'name': name, 'country': country};
+  }
+
+  factory City.fromMap(Map<String, dynamic> map) {
+    return City(
+      id: map['id'] as int,
+      name: map['name'] as String,
+      country: map['country'] as String,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory City.fromJson(String source) =>
+      City.fromMap(json.decode(source) as Map<String, dynamic>);
 }
 
 class WeatherData {
